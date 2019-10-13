@@ -8,6 +8,33 @@ const User = require('./models/user')
 const app = express()
 const port = process.env.PORT || 3000
 
+
+const multer = require('multer')
+const upload = multer({
+    dest: 'images'
+})
+app.post('/upload', upload.single('upload'), (req, res) => {
+    res.send()
+})
+
+
+
+
+
+app.use(express.json())
+app.use(userRouter)
+app.use(taskRouter)
+
+app.listen(port, () => {
+    console.log('Server is up on port' + port)
+})
+
+
+
+
+
+
+// *******Using Middleware*********
 // app.use((req, res, next) => {
 //     if (req.method === 'GET') {
 //         res.send('GET requests are disabled')
@@ -20,25 +47,20 @@ const port = process.env.PORT || 3000
 //     res.status(503).send('Maintenance underway, try again soon!')
 // })
 
-app.use(express.json())
-app.use(userRouter)
-app.use(taskRouter)
 
-app.listen(port, () => {
-    console.log('Server is up on port' + port)
-})
 
-const main = async () => {
-    // const task = await Task.findById('5da21d6d71c6cc246072eac1')
-    // await task.populate('owner').execPopulate()
-    // console.log(task.owner)
 
-    // const user = await User.findById('5da21c40b00a290c583159ee')
-    // await user.populate('tasks').execPopulate()
-    // console.log(user.tasks)
-}
+// const main = async () => {
+//     // const task = await Task.findById('5da21d6d71c6cc246072eac1')
+//     // await task.populate('owner').execPopulate()
+//     // console.log(task.owner)
 
-main()
+//     // const user = await User.findById('5da21c40b00a290c583159ee')
+//     // await user.populate('tasks').execPopulate()
+//     // console.log(user.tasks)
+// }
+
+// main()
 
 
 // const pet = {
